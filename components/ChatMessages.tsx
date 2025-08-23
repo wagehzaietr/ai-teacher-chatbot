@@ -7,10 +7,30 @@ import { Loader2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useRef } from "react";
 import MatrixText from './ui/matex-text';
+import type { UIMessage } from 'ai';
+
+interface MessagePart {
+  type: string;
+  text?: string;
+  image?: {
+    url: string;
+    mimeType?: string;
+  };
+  mimeType?: string;
+  mediaType?: string;
+  url?: string;
+  filename?: string;
+}
 
 
 
-export function ChatMessages({ messages, isLoading }: { messages: any[]; isLoading: boolean }) {
+
+interface ChatMessagesProps {
+  messages: UIMessage[];
+  isLoading: boolean;
+}
+
+export function ChatMessages({ messages, isLoading }: ChatMessagesProps) {
   const inputRef = useRef<HTMLDivElement | null>(null);
   
   const scrollIntoView = () => {
@@ -23,11 +43,11 @@ export function ChatMessages({ messages, isLoading }: { messages: any[]; isLoadi
   return (
     <Conversation >
       <ConversationContent>
-        {messages.map((message) => (
+        {messages.map((message: UIMessage) => (
           <Message from={message.role} key={message.id}>
             <MessageContent>
-              {message.parts.map((part: any, i: number) => {
-                if (part.type === "text") {
+              {message.parts.map((part: MessagePart, i: number) => {
+                if (part.type === "text" && part.text) {
                   // Check if the text contains code blocks
                   const codeBlockRegex = /```(\w+)?\n([\s\S]*?)\n```/g;
                   const parts = [];
@@ -35,13 +55,15 @@ export function ChatMessages({ messages, isLoading }: { messages: any[]; isLoadi
                   let match;
 
                   // Process the text to find and render code blocks
-                  while ((match = codeBlockRegex.exec(part.text)) !== null) {
+                  const text = part.text || '';
+                  codeBlockRegex.lastIndex = 0; // Reset regex state
+                  while ((match = codeBlockRegex.exec(text)) !== null) {
                     const [fullMatch, language, code] = match;
                     // Add text before the code block
                     if (match.index > lastIndex) {
                       parts.push(
                         <Response key={`${message.id}-${i}-text-${lastIndex}`}>
-                          {part.text.substring(lastIndex, match.index)}
+                          {part.text?.slice(lastIndex, match.index) || ''}
                         </Response>
                       );
                     }
@@ -61,18 +83,24 @@ export function ChatMessages({ messages, isLoading }: { messages: any[]; isLoadi
                   if (lastIndex < part.text.length) {
                     parts.push(
                       <Response key={`${message.id}-${i}-text-end`}>
-                        {part.text.substring(lastIndex)}
+                        {part.text?.slice(lastIndex) || ''}
                       </Response>
                     );
                   }
-                  return parts.length > 0 ? parts : <Response key={`${message.id}-${i}`}>{part.text}</Response>;
+                  return parts.length > 0 ? parts : part.text ? <div key={i}><MatrixText text={part.text} /></div> : null;
                 }
-                if (part.type === "file" && part.mediaType?.startsWith("image/")) {
+                if (part.type === "file" && part.mediaType?.startsWith("image/") && part.url) {
                   return (
                     <div key={`${message.id}-${i}`} className="mt-3">
                       <Card className="overflow-hidden border-border bg-background max-w-sm">
                         <CardContent className="p-2">
-                          <Image src={part.url} alt={part.filename ?? `attachment-${i}`} width={400} height={300} className="rounded-md object-cover w-full h-auto max-h-64" />
+                          <Image 
+                            src={part.url} 
+                            alt={part.filename || `attachment-${i}`} 
+                            width={400} 
+                            height={300} 
+                            className="rounded-md object-cover w-full h-auto max-h-64" 
+                          />
                         </CardContent>
                       </Card>
                     </div>

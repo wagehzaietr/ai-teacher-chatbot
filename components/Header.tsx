@@ -3,14 +3,11 @@
 import { useState } from 'react'
 import { MessageCircle, Crown, User, HelpCircle,Menu } from 'lucide-react'
 import ModeToggle from './light-switch'
-import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import  Image  from 'next/image';
 
 
 export default function SideNav() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const [isOpen, setIsOpen] = useState(false)
   const navIcons = [
     { icon: <MessageCircle className="h-6 w-6" />, label: 'Chat' },
     { icon: <Crown className="h-6 w-6" />, label: 'Premium' },

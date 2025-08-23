@@ -28,7 +28,6 @@ export function ChatInput({
   onStartCamera,
   isLoading,
   stop,
-  status,
   disabled = false,
 }: ChatInputProps) {
   return (
@@ -92,7 +91,7 @@ export function ChatInput({
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
-              onSubmit(e as any);
+              onSubmit(e as unknown as FormEvent<HTMLFormElement>);
             }
           }}
         />

@@ -96,7 +96,7 @@ const MatrixText = ({
     useEffect(() => {
         const timer = setTimeout(startAnimation, initialDelay);
         return () => clearTimeout(timer);
-    }, []);
+    }, [initialDelay]);
 
     const motionVariants = useMemo(
         () => ({

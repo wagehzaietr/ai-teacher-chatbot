@@ -157,7 +157,7 @@ export default function MultiModalChatPage() {
             />
             {hasReachedLimit && (
               <div className="text-sm text-muted-foreground text-center mt-2">
-                You've used {messageCount}/{maxMessages} messages today. The limit resets at midnight.
+                You&apos;ve used {messageCount}/{maxMessages} messages today. The limit resets at midnight.
               </div>
             )}
           </CardContent>
