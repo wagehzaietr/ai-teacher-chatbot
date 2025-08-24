@@ -25,7 +25,7 @@ export function ChatInput({
   setFiles,
   fileInputRef,
   onSubmit,
-  onStartCamera,
+  // onStartCamera,
   isLoading,
   stop,
   disabled = false,
@@ -34,7 +34,7 @@ export function ChatInput({
     <form onSubmit={onSubmit} className="space-y-3">
       {/* Quick Actions */}
       <div className="flex items-center gap-2">
-        <Button
+        {/* <Button
           type="button"
           variant="outline"
           size="sm"
@@ -44,7 +44,7 @@ export function ChatInput({
         >
           <Camera className="h-3 w-3" />
           Quick Photo
-        </Button>
+        </Button> */}
 
         <Button
           type="button"
