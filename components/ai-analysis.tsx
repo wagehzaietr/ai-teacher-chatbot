@@ -70,6 +70,7 @@ export default function MultiModalChatPage() {
     setCapturedImage,
     videoRef,
     canvasRef,
+    error: cameraError,
   } = useCamera();
 
   // Handle captured image → file
@@ -166,7 +167,7 @@ export default function MultiModalChatPage() {
         retakePhoto={retakePhoto}
         videoRef={videoRef}
         canvasRef={canvasRef}
-        error={error}
+        error={cameraError}
         startCamera={startCamera}
       />
     </div>
