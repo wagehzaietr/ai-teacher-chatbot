@@ -2,7 +2,7 @@ import { FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Paperclip, Send, StopCircle, Camera } from "lucide-react";
+import { Paperclip, Send, StopCircle, } from "lucide-react";
 
 type ChatInputProps = {
   input: string;
