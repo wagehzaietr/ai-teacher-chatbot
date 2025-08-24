@@ -107,8 +107,8 @@ export default function MultiModalChatPage() {
   const isLoading = status === "submitted" || status === "streaming";
 
   return (
-    <div className="flex flex-col flex-1 w-full bg-background">
-      <div className="flex flex-col flex-1 w-full max-w-5xl mx-auto">
+    <div className="flex flex-col h-[calc(100vh-64px)] w-full bg-background relative">
+      <div className="flex-1 w-full max-w-5xl mx-auto overflow-hidden flex flex-col">
         {error && (
           <Card className="mx-4 mt-4 border-border bg-background">
             <CardContent className="pt-4">
@@ -119,50 +119,56 @@ export default function MultiModalChatPage() {
           </Card>
         )}
 
-        <div className="flex-1 px-4  overflow-y-auto  max-h-[calc(100vh-250px)]">
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           {messages.length === 0 ? (
             <QuickActions />
           ) : (
-            <ChatMessages messages={messages} isLoading={isLoading} />
+            <div className="pb-24">
+              <ChatMessages messages={messages} isLoading={isLoading} />
+            </div>
           )}
         </div>
-
-
-
-        <CameraDialog
-          isOpen={isCameraOpen}
-          capturedImage={capturedImage}
-          stopCamera={stopCamera}
-          captureImage={captureImage}
-          useCapturedImage={useCapturedImage}
-          retakePhoto={retakePhoto}
-          videoRef={videoRef}
-          canvasRef={canvasRef}
-        />
-
-        <Card className="m-4 mt-0 border-border bg-background">
-          <CardContent className="p-4">
-            <ChatInput
-              input={input}
-              setInput={setInput}
-              files={files}
-              setFiles={setFiles}
-              fileInputRef={fileInputRef}
-              onSubmit={handleSubmit}
-              onStartCamera={startCamera}
-              isLoading={isLoading || hasReachedLimit}
-              stop={stop}
-              status={hasReachedLimit ? 'limit_reached' : status}
-              disabled={hasReachedLimit}
-            />
-            {hasReachedLimit && (
-              <div className="text-sm text-muted-foreground text-center mt-2">
-                You&apos;ve used {messageCount}/{maxMessages} messages today. The limit resets at midnight.
-              </div>
-            )}
-          </CardContent>
-        </Card>
       </div>
+
+      <div className="w-full bg-background border-t border-border">
+        <div className="max-w-5xl mx-auto w-full">
+          <Card className="border-0 rounded-none border-t shadow-none">
+            <CardContent className="p-4">
+              <ChatInput
+                input={input}
+                setInput={setInput}
+                files={files}
+                setFiles={setFiles}
+                fileInputRef={fileInputRef}
+                onSubmit={handleSubmit}
+                onStartCamera={startCamera}
+                isLoading={isLoading || hasReachedLimit}
+                stop={stop}
+                status={hasReachedLimit ? 'limit_reached' : status}
+                disabled={hasReachedLimit}
+              />
+              {hasReachedLimit && (
+                <div className="text-sm text-muted-foreground text-center mt-2">
+                  You&apos;ve used {messageCount}/{maxMessages} messages today. The limit resets at midnight.
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      <CameraDialog
+        isOpen={isCameraOpen}
+        capturedImage={capturedImage}
+        stopCamera={stopCamera}
+        captureImage={captureImage}
+        useCapturedImage={useCapturedImage}
+        retakePhoto={retakePhoto}
+        videoRef={videoRef}
+        canvasRef={canvasRef}
+        error={error}
+        startCamera={startCamera}
+      />
     </div>
   );
 }

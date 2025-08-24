@@ -69,22 +69,22 @@ export default function SideNav() {
         </div>
       </div>
     </nav>
-    <div className="absolute top-0 right-0 p-4 hidden">
+    <div className="absolute top-0 right-0 p-4 md:hidden z-20">
       {/* <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="sm">
-              <Menu className="h-12 w-12 text-border" />
-            </Button>
+          <Button variant="ghost" size="sm">
+          <Menu className="h-12 w-12 text-border" />
+          </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-            <div className="flex flex-col space-y-4 mt-8">
-              
-              <div className="pt-4 border-t border-border space-y-3">
-              </div>
-            </div>
+          <div className="flex flex-col space-y-4 mt-8">
+          
+          <div className="pt-4 border-t border-border space-y-3">
+          </div>
+          </div>
           </SheetContent>
-        </Sheet> */}
-               <ModeToggle/>
+          </Sheet> */}
+          <ModeToggle/>
     </div>
         </>
   )

@@ -7,7 +7,7 @@ export function QuickActions() {
     <div className="flex flex-col items-center justify-center py-8 md:py-12 px-4 sm:px-6 lg:px-8 w-full">
       {/* Heading with responsive sizing */}
       <h2 className="font-bold text-3xl sm:text-4xl md:text-[3.75rem] leading-tight md:leading-[1.1] font-poly-sans text-text-headline text-balance text-center max-w-4xl mx-auto mb-8 md:mb-12 px-2">
-        World&apos;s smartest AIs, side-by-side with you
+        World&apos;s smartest AI techer
       </h2>
 
       {/* Cards container with improved responsive layout */}
